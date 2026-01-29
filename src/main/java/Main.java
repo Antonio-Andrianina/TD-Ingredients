@@ -1,19 +1,25 @@
 public class Main {
     public static void main(String[] args) {
-        // Log before changes
         DataRetriever dataRetriever = new DataRetriever();
-        Dish dish = dataRetriever.findDishById(4
+        Dish saladeVerte = dataRetriever.findDishById(1);
+        System.out.println(saladeVerte);
 
-        );
-        System.out.println(dish);
+        Dish poulet = dataRetriever.findDishById(2);
+        System.out.println(poulet);
 
-        // Log after changes
-//        dish.setIngredients(List.of(new Ingredient(1), new Ingredient(2)));
-//        Dish newDish = dataRetriever.saveDish(dish);
-//        System.out.println(newDish);
+        Dish rizLegume = dataRetriever.findDishById(3);
+        rizLegume.setPrice(100.0);
+        Dish newRizLegume = dataRetriever.saveDish(rizLegume);
+        System.out.println(newRizLegume); // Should not throw exception
 
-        // Ingredient creations
-        //List<Ingredient> createdIngredients = dataRetriever.createIngredients(List.of(new Ingredient(null, "Fromage", CategoryEnum.DAIRY, 1200.0)));
-        //System.out.println(createdIngredients);
+
+//        Dish rizLegumeAgain = dataRetriever.findDishById(3);
+//        rizLegumeAgain.setPrice(null);
+//        Dish savedNewRizLegume = dataRetriever.saveDish(rizLegume);
+//        System.out.println(savedNewRizLegume); // Should throw exception
+
+        Ingredient laitue = dataRetriever.findIngredientById(1);
+        System.out.println(laitue);
+
     }
 }
