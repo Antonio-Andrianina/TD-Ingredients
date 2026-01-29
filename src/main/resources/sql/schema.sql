@@ -78,5 +78,12 @@ create table if not exists dish_order
     quantity int
 );
 
-CREATE SEQUENCE IF NOT EXISTS order_reference_seq START 1;
+create sequence if not exists order_reference_seq START 1;
+
+create type order_type AS ENUM ('EAT_IN', 'TAKE_AWAY');
+create type order_status AS ENUM ('CREATED', 'READY', 'DELIVERED');
+
+alter table "order"
+    add column if not exists order_type order_type,
+    add column if not exists order_status order_status DEFAULT 'CREATED';
 

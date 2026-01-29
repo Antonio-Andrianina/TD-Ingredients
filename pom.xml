@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.hei.school</groupId>
-    <artifactId>ingredient-management-dec-2025</artifactId>
+    <groupId>L2</groupId>
+    <artifactId>TD-Ingredients</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -20,4 +20,17 @@
             <version>42.7.3</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>24</source>
+                    <target>24</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
