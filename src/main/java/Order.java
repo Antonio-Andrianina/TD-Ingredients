@@ -7,6 +7,8 @@ public class Order {
     private String reference;
     private Instant creationDatetime;
     private List<DishOrder> dishOrderList;
+    private OrderTypeEnum orderType;      // Nouveau
+    private OrderStatusEnum orderStatus;  // Nouveau
 
     public Integer getId() {
         return id;
@@ -40,33 +42,63 @@ public class Order {
         this.dishOrderList = dishOrderList;
     }
 
+    public OrderTypeEnum getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(OrderTypeEnum orderType) {
+        this.orderType = orderType;
+    }
+
+    public OrderStatusEnum getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatusEnum orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", reference='" + reference + '\'' +
                 ", creationDatetime=" + creationDatetime +
+                ", orderType=" + orderType +
+                ", orderStatus=" + orderStatus +
                 ", dishOrderList=" + dishOrderList +
                 '}';
     }
 
     Double getTotalAmountWithoutVat() {
-        throw new RuntimeException("Not implemented");
+        if (dishOrderList == null || dishOrderList.isEmpty()) {
+            return 0.0;
+        }
+        return dishOrderList.stream()
+                .mapToDouble(dishOrder ->
+                        dishOrder.getDish().getPrice() * dishOrder.getQuantity())
+                .sum();
     }
 
     Double getTotalAmountWithVat() {
-        throw new RuntimeException("Not implemented");
+        double totalWithoutVat = getTotalAmountWithoutVat();
+        double vatRate = 0.20; // 20% de TVA
+        return totalWithoutVat * (1 + vatRate);
     }
-
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Order order)) return false;
-        return Objects.equals(id, order.id) && Objects.equals(reference, order.reference) && Objects.equals(creationDatetime, order.creationDatetime) && Objects.equals(dishOrderList, order.dishOrderList);
+        return Objects.equals(id, order.id) &&
+                Objects.equals(reference, order.reference) &&
+                Objects.equals(creationDatetime, order.creationDatetime) &&
+                Objects.equals(dishOrderList, order.dishOrderList) &&
+                orderType == order.orderType &&
+                orderStatus == order.orderStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, reference, creationDatetime, dishOrderList);
+        return Objects.hash(id, reference, creationDatetime, orderType, orderStatus, dishOrderList);
     }
 }
